@@ -1,4 +1,13 @@
 (function(){
+  // Evita que o navegador "lembre" a rolagem de uma visita anterior
+  // e restaure o meio do site ao atualizar a página.
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', function(){ window.scrollTo(0, 0); });
+  window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
+
   var envelope = document.getElementById('envelope');
   var openBtn = document.getElementById('open-btn');
   var envelopeScreen = document.getElementById('envelope-screen');

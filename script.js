@@ -47,15 +47,38 @@
   });
   openBtn.addEventListener('click', openEnvelope);
 
-  /* ---------- reveal do quadro-negro ---------- */
+  /* ---------- reveal do quadro-negro (giz escrevendo o pedido) ---------- */
   var revealBtn = document.getElementById('reveal-btn');
-  var revealWrap = document.getElementById('reveal-wrap');
   var chalkContent = document.getElementById('chalk-content');
+  var chalkQuestion = document.getElementById('chalk-question');
+  var chalkButtonsWrap = document.getElementById('chalk-buttons-wrap');
+  var buttonsRevealed = false;
+
+  function showChalkButtons(){
+    if (buttonsRevealed) return;
+    buttonsRevealed = true;
+    chalkButtonsWrap.classList.add('show');
+  }
 
   function revealChalk(){
-    revealWrap.classList.add('hidden');
-    chalkContent.classList.add('show');
+    revealBtn.classList.add('hidden');
+    chalkContent.hidden = false;
+
+    // pequeno atraso para garantir que o navegador registre o estado
+    // inicial (clip-path fechado) antes de disparar a animação
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        chalkQuestion.classList.add('writing');
+      });
+    });
+
+    chalkQuestion.addEventListener('animationend', showChalkButtons);
+    // rede de segurança: caso o evento de animação não dispare
+    // (ex: navegador incomum, aba em segundo plano), os botões
+    // aparecem mesmo assim depois de um tempo
+    setTimeout(showChalkButtons, 2600);
   }
+
   if (revealBtn){
     revealBtn.addEventListener('click', revealChalk);
   }

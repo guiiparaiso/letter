@@ -392,13 +392,34 @@
     color: #b9c7bd;
     margin-bottom: 18px;
   }
+  /* ---------- chalk stage (reveal button + question + accept buttons) ---------- */
+  .chalk-stage{
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 640px){
+    .chalk-stage{ min-height: 420px; }
+  }
+
   .chalk-question{
     font-family: 'Caveat', cursive;
     font-size: clamp(2.4rem, 8vw, 4.2rem);
     color: var(--chalk);
     max-width: 720px;
-    margin: 0 auto 42px;
+    margin: 0 auto;
+    text-align: center;
     text-shadow: 0 0 1px rgba(244,239,227,0.5);
+    clip-path: inset(0 100% 0 0);
+  }
+  .chalk-question.writing{
+    animation: chalkWrite 1.9s steps(48, end) forwards;
+  }
+  @keyframes chalkWrite{
+    from{ clip-path: inset(0 100% 0 0); }
+    to{ clip-path: inset(0 0 0 0); }
   }
 
   .chalk-buttons{
@@ -415,35 +436,32 @@
     .chalk-buttons{ min-height: 260px; }
   }
 
-  /* ---------- reveal button ---------- */
-  .reveal-wrap{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    min-height: 170px;
-    justify-content: center;
-    transition: opacity 0.4s ease;
+  .chalk-buttons-wrap{
+    margin-top: 42px;
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  .reveal-wrap.hidden{
-    display: none;
+  .chalk-buttons-wrap.show{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
+  /* ---------- reveal button ---------- */
   .reveal-btn{
     font-family: 'Caveat', cursive;
     font-weight: 700;
-    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    font-size: clamp(1.7rem, 5vw, 2.3rem);
     color: var(--chalk);
     background: transparent;
     border: 2px dashed rgba(244,239,227,0.7);
     border-radius: 14px;
-    padding: 16px 34px;
+    padding: 18px 42px;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
     animation: chalkPulse 2.2s ease-in-out infinite;
-    transition: transform 0.15s ease, background 0.2s ease;
+    transition: transform 0.15s ease, background 0.2s ease, opacity 0.3s ease;
   }
   .reveal-btn:hover{
     background: rgba(244,239,227,0.08);
@@ -451,34 +469,22 @@
   }
   .reveal-btn:active{ transform: translateY(1px); }
   .reveal-btn:focus-visible{ outline: 3px solid var(--yellow); outline-offset: 3px; }
-  .reveal-icon{ font-size: 1.3rem; }
+  .reveal-btn.hidden{ display: none; }
 
   @keyframes chalkPulse{
     0%, 100% { box-shadow: 0 0 0 rgba(244,239,227,0); }
     50% { box-shadow: 0 0 18px rgba(244,239,227,0.25); }
   }
 
-  .reveal-hint{
-    font-family: 'Space Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    color: #b9c7bd;
-    margin: 0;
-  }
-
-  /* ---------- chalk content (question + buttons) ---------- */
+  /* ---------- chalk content (question + buttons), truly hidden via [hidden] ---------- */
   .chalk-content{
-    opacity: 0;
-    transform: translateY(14px) scale(0.98);
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
-  .chalk-content.show{
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    max-height: 900px;
-    overflow: visible;
+  .chalk-content[hidden]{
+    display: none;
   }
 
   @media (prefers-reduced-motion: reduce){

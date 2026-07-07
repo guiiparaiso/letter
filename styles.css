@@ -415,6 +415,76 @@
     .chalk-buttons{ min-height: 260px; }
   }
 
+  /* ---------- reveal button ---------- */
+  .reveal-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-height: 170px;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+  }
+  .reveal-wrap.hidden{
+    display: none;
+  }
+
+  .reveal-btn{
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    color: var(--chalk);
+    background: transparent;
+    border: 2px dashed rgba(244,239,227,0.7);
+    border-radius: 14px;
+    padding: 16px 34px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    animation: chalkPulse 2.2s ease-in-out infinite;
+    transition: transform 0.15s ease, background 0.2s ease;
+  }
+  .reveal-btn:hover{
+    background: rgba(244,239,227,0.08);
+    transform: translateY(-3px);
+  }
+  .reveal-btn:active{ transform: translateY(1px); }
+  .reveal-btn:focus-visible{ outline: 3px solid var(--yellow); outline-offset: 3px; }
+  .reveal-icon{ font-size: 1.3rem; }
+
+  @keyframes chalkPulse{
+    0%, 100% { box-shadow: 0 0 0 rgba(244,239,227,0); }
+    50% { box-shadow: 0 0 18px rgba(244,239,227,0.25); }
+  }
+
+  .reveal-hint{
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: #b9c7bd;
+    margin: 0;
+  }
+
+  /* ---------- chalk content (question + buttons) ---------- */
+  .chalk-content{
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+  }
+  .chalk-content.show{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    max-height: 900px;
+    overflow: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal-btn{ animation: none; }
+  }
+
   .btn{
     font-family: 'Nunito', sans-serif;
     font-weight: 800;

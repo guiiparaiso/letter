@@ -197,6 +197,45 @@
     transform: translateY(-38%);
   }
 
+  /* ---------- carta saindo do envelope e desdobrando ---------- */
+  .letter-unfold{
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 34%;
+    transform-origin: bottom center;
+    background: #FFFDF8;
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    box-shadow: 0 10px 18px var(--shadow);
+    z-index: 5;
+    opacity: 0;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transform: translateY(0) scaleY(0.12);
+    pointer-events: none;
+  }
+  .letter-unfold .letter-line{
+    display: block;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--line-blue);
+  }
+  .letter-unfold .letter-line.short{ width: 55%; }
+
+  .envelope.opened .letter-unfold{
+    animation: letterUnfold 1s cubic-bezier(.22,.85,.32,1) 0.45s forwards;
+  }
+
+  @keyframes letterUnfold{
+    0%   { opacity: 0; transform: translateY(0) scaleY(0.12); }
+    30%  { opacity: 1; }
+    60%  { transform: translateY(-38px) scaleY(0.7); }
+    100% { opacity: 1; transform: translateY(-52px) scaleY(1); }
+  }
+
   .open-btn{
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;

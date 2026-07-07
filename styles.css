@@ -412,14 +412,25 @@
     margin: 0 auto;
     text-align: center;
     text-shadow: 0 0 1px rgba(244,239,227,0.5);
+    position: relative;
+  }
+  .chalk-line{
+    display: block;
     clip-path: inset(0 100% 0 0);
   }
-  .chalk-question.writing{
-    animation: chalkWrite 1.9s steps(48, end) forwards;
+  .chalk-line.revealed{
+    clip-path: inset(0 0 0 0);
   }
-  @keyframes chalkWrite{
-    from{ clip-path: inset(0 100% 0 0); }
-    to{ clip-path: inset(0 0 0 0); }
+
+  /* canvas used to draw falling chalk-dust particles while each line "is written" */
+  .chalk-dust-canvas{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
   }
 
   .chalk-buttons{
@@ -437,7 +448,9 @@
   }
 
   .chalk-buttons-wrap{
-    margin-top: 42px;
+    width: 100%;
+    max-width: 720px;
+    margin: 42px auto 0;
     opacity: 0;
     transform: translateY(14px);
     pointer-events: none;
@@ -478,6 +491,7 @@
 
   /* ---------- chalk content (question + buttons), truly hidden via [hidden] ---------- */
   .chalk-content{
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;

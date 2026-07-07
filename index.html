@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedido de Padrinho de Sala</title>
+
+<!--
+  ============================================================
+  COMO EDITAR ESTE ARQUIVO
+  ============================================================
+  Tudo que precisa trocar está marcado assim: [Nome da Professora]
+  Basta abrir este arquivo com o Bloco de Notas, Word ou qualquer
+  editor de texto, usar Ctrl+F para achar os colchetes [ ] e trocar
+  pelo texto real. Depois é só salvar e abrir o arquivo no navegador
+  (ou mandar o link/arquivo pra pessoa).
+
+  Lugares para editar:
+  - [Nome da Professora]  -> nome de quem vai receber o convite
+  - [Matéria]             -> disciplina que ela/ele leciona
+  - [Nome da Turma]       -> ex: 3º Ano B, Turma do Fundamental II
+  - [Nome da Escola]      -> nome da escola (pode apagar se não usar)
+  - [Data]                -> data da formatura/evento, se houver
+  - Os 4 motivos na seção "Por que você?" -> troque por motivos reais
+  - Assinatura no final -> nomes da turma, se quiserem
+  ============================================================
+-->
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="locked">
+
+<div class="spine" aria-hidden="true">
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  <div class="hole"></div><div class="hole"></div>
+</div>
+
+<!-- ============ ENVELOPE INTRO ============ -->
+<div id="envelope-screen">
+  <div class="envelope-stage">
+    <div class="label stamp">correio da turma</div>
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir carta">
+      <div class="env-letter-peek"></div>
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="env-seal">P</div>
+      <div class="letter-unfold" aria-hidden="true">
+        <div class="letter-unfold-paper">
+          <h3 class="letter-unfold-heading" id="letter-preview-heading">Querida professora,</h3>
+          <p class="letter-unfold-text" id="letter-preview-text">Antes de mais nada: respira fundo...</p>
+        </div>
+      </div>
+    </div>
+    <button class="open-btn" id="open-btn">Toque para abrir</button>
+    <p class="envelope-caption">tem uma cartinha esperando por você</p>
+  </div>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<main id="main-content">
+  <div class="content-wrap">
+
+    <section class="paper-section">
+      <h1 class="letter-heading">Querida <span class="highlight">Jadi</span>,</h1>
+      <div class="letter-body">
+        <p>Antes de mais nada: respira fundo. O que vem a seguir é uma cartinha de verdade — escrita (ou melhor, digitada) com bem mais carinho do que qualquer aviso no grupo da turma.</p>
+        <p>A turma <span class="highlight">T4</span> passou um tempinho pensando em como te contar uma coisa importante, e decidimos que um site provavelmente chamaria mais atenção do que mais um recado no caderno. Então aqui está.</p>
+        <p>Tem uma pergunta guardada pra você lá no fim dessa carta. Mas antes, deixa a gente te contar por quê.</p>
+      </div>
+    </section>
+
+    <section class="paper-section reveal-on-scroll">
+      <h2 class="reasons-title">Por que você? </h2>
+      <ul class="reason-list">
+        <li class="reason-item reveal-on-scroll">
+          <span class="reason-emoji">✏️</span>
+          <span class="reason-text">Porque explicar <strong>Java</strong> nunca foi tão fácil de entender (nem tão engraçado).</span>
+        </li>
+        <li class="reason-item reveal-on-scroll">
+          <span class="reason-emoji">📚</span>
+          <span class="reason-text">Porque teve paciência com a gente até nos dias mais caóticos — e não foram poucos.</span>
+        </li>
+        <li class="reason-item reveal-on-scroll">
+          <span class="reason-emoji">🌟</span>
+          <span class="reason-text">Porque fez diferença na nossa turma sem nem perceber o tamanho disso.</span>
+        </li>
+        <li class="reason-item reveal-on-scroll">
+          <span class="reason-emoji">💛</span>
+          <span class="reason-text">Porque a sala de aula fica bem mais leve com você por perto.</span>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- ============ CHALKBOARD ASK ============ -->
+  <section class="chalkboard">
+    <div class="chalk-label">o pedido oficial</div>
+
+    <div class="chalk-stage" id="chalk-stage">
+      <button class="reveal-btn" id="reveal-btn">Revelar pedido</button>
+
+      <div class="chalk-content" id="chalk-content" hidden>
+        <h2 class="chalk-question" id="chalk-question">
+          <span class="chalk-line" id="chalk-line-1">Professora Jadi, você aceita ser</span>
+          <span class="chalk-line" id="chalk-line-2">madrinha da turma T4?</span>
+        </h2>
+        <canvas class="chalk-dust-canvas" id="chalk-dust-canvas" aria-hidden="true"></canvas>
+        <div class="chalk-buttons-wrap" id="chalk-buttons-wrap">
+          <div class="chalk-buttons" id="chalk-buttons">
+            <button class="btn btn-yes" id="btn-yes">Sim, eu aceito! 🎉</button>
+            <button class="btn btn-think" id="btn-think">Deixa eu pensar…</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CELEBRATION ============ -->
+  <section id="celebration">
+    <h2 class="celebration-title">Ela aceitou! 🎉</h2>
+    <p class="celebration-sub">Bem-vinda à turma <b>T4</b>, agora oficialmente nossa madrinha de sala. Obrigado(a) por fazer parte da nossa história, <b>Jadi</b>.</p>
+    <div class="signature-card">
+      <div class="handwritten">Com carinho, Turma T4</div>
+      <div class="label">Fadenorte · 08-07-2026</div>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <footer>feito com 💛 pela turma T4</footer>
+  </div>
+</main>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script src="script.js"></script>
+
+</body>
+</html>

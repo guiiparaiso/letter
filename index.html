@@ -98,18 +98,17 @@
   <section class="chalkboard">
     <div class="chalk-label">o pedido oficial</div>
 
-    <div class="reveal-wrap" id="reveal-wrap">
-      <button class="reveal-btn" id="reveal-btn">
-        <span class="reveal-icon">📢</span> Revelar aviso
-      </button>
-      <p class="reveal-hint">psst… tem um recado escrito no quadro</p>
-    </div>
+    <div class="chalk-stage" id="chalk-stage">
+      <button class="reveal-btn" id="reveal-btn">Revelar pedido</button>
 
-    <div class="chalk-content" id="chalk-content">
-      <h2 class="chalk-question">Professora Jadi, você aceita ser<br>madrinha da turma T4?</h2>
-      <div class="chalk-buttons" id="chalk-buttons">
-        <button class="btn btn-yes" id="btn-yes">Sim, eu aceito! 🎉</button>
-        <button class="btn btn-think" id="btn-think">Deixa eu pensar…</button>
+      <div class="chalk-content" id="chalk-content" hidden>
+        <h2 class="chalk-question" id="chalk-question">Professora Jadi, você aceita ser<br>madrinha da turma T4?</h2>
+        <div class="chalk-buttons-wrap" id="chalk-buttons-wrap">
+          <div class="chalk-buttons" id="chalk-buttons">
+            <button class="btn btn-yes" id="btn-yes">Sim, eu aceito! 🎉</button>
+            <button class="btn btn-think" id="btn-think">Deixa eu pensar…</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>

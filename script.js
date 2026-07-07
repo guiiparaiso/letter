@@ -47,6 +47,19 @@
   });
   openBtn.addEventListener('click', openEnvelope);
 
+  /* ---------- reveal do quadro-negro ---------- */
+  var revealBtn = document.getElementById('reveal-btn');
+  var revealWrap = document.getElementById('reveal-wrap');
+  var chalkContent = document.getElementById('chalk-content');
+
+  function revealChalk(){
+    revealWrap.classList.add('hidden');
+    chalkContent.classList.add('show');
+  }
+  if (revealBtn){
+    revealBtn.addEventListener('click', revealChalk);
+  }
+
   /* ---------- "Deixa eu pensar" dodges the cursor ---------- */
   var thinkBtn = document.getElementById('btn-think');
   var chalkArea = document.getElementById('chalk-buttons');

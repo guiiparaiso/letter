@@ -200,40 +200,72 @@
   /* ---------- carta saindo do envelope e desdobrando ---------- */
   .letter-unfold{
     position: absolute;
-    left: 10%;
-    right: 10%;
-    bottom: 34%;
+    left: 2%;
+    right: 2%;
+    bottom: 28%;
     transform-origin: bottom center;
-    background: #FFFDF8;
-    border: 2px solid var(--ink);
-    border-radius: 4px;
-    box-shadow: 0 10px 18px var(--shadow);
     z-index: 5;
     opacity: 0;
-    padding: 10px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transform: translateY(0) scaleY(0.12);
+    transform: translateY(0) scaleY(0.06);
     pointer-events: none;
   }
-  .letter-unfold .letter-line{
-    display: block;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--line-blue);
+  .letter-unfold-paper{
+    background: #FFFDF8;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    box-shadow: 0 20px 34px var(--shadow);
+    padding: 22px 24px 26px;
+    position: relative;
   }
-  .letter-unfold .letter-line.short{ width: 55%; }
+  .letter-unfold-paper::before{ /* linha de dobra, reforça a ideia de "desdobrando" */
+    content: "";
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 50%;
+    border-top: 1px dashed var(--line-blue);
+  }
+  .letter-unfold-heading{
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    color: var(--ink);
+    margin: 0 0 10px;
+    line-height: 1.1;
+  }
+  .letter-unfold-text{
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(0.82rem, 3vw, 0.95rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
   .envelope.opened .letter-unfold{
-    animation: letterUnfold 1s cubic-bezier(.22,.85,.32,1) 0.45s forwards;
+    animation: letterUnfold 1.5s cubic-bezier(.25,.75,.3,1.05) 0.4s forwards;
   }
 
   @keyframes letterUnfold{
-    0%   { opacity: 0; transform: translateY(0) scaleY(0.12); }
-    30%  { opacity: 1; }
-    60%  { transform: translateY(-38px) scaleY(0.7); }
-    100% { opacity: 1; transform: translateY(-52px) scaleY(1); }
+    0%   { opacity: 0; transform: translateY(0) scaleY(0.06); }
+    22%  { opacity: 1; }
+    50%  { transform: translateY(-50px) scaleY(0.55); }
+    78%  { transform: translateY(-108px) scaleY(0.92); }
+    100% { opacity: 1; transform: translateY(-122px) scaleY(1); }
+  }
+
+  /* em telas baixas, sobe bem menos pra não cortar no topo */
+  @media (max-height: 640px){
+    @keyframes letterUnfold{
+      0%   { opacity: 0; transform: translateY(0) scaleY(0.06); }
+      22%  { opacity: 1; }
+      50%  { transform: translateY(-30px) scaleY(0.55); }
+      78%  { transform: translateY(-62px) scaleY(0.92); }
+      100% { opacity: 1; transform: translateY(-70px) scaleY(1); }
+    }
   }
 
   .open-btn{

@@ -187,30 +187,41 @@
     if (dustCanvas) sizeDustCanvas();
   });
 
-  function writeLine(line, duration, onDone){
-    var startRect = line.getBoundingClientRect();
-    var startTime = null;
+  function prepareChalkWords(){
+    chalkLines.forEach(function(line){
+      if (line.dataset.wordsReady) return; // evita reprocessar se revealChalk for chamado mais de uma vez
+      var text = line.textContent;
+      var words = text.trim().split(/\s+/);
+      line.textContent = '';
+      words.forEach(function(word, i){
+        var span = document.createElement('span');
+        span.className = 'chalk-word';
+        span.textContent = word;
+        line.appendChild(span);
+        if (i < words.length - 1){
+          line.appendChild(document.createTextNode(' '));
+        }
+      });
+      line.dataset.wordsReady = '1';
+    });
+  }
 
-    function frame(now){
-      if (startTime === null) startTime = now;
-      var t = Math.min((now - startTime) / duration, 1);
-      var pct = t * 100;
-      line.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
-
-      // giz "cai" no ponto onde o texto está sendo revelado
-      var cursorX = startRect.left + startRect.width * t;
-      var cursorY = startRect.top + startRect.height * 0.72;
-      spawnDust(cursorX, cursorY);
-
-      if (t < 1){
-        requestAnimationFrame(frame);
-      } else {
-        line.classList.add('revealed');
-        line.style.clipPath = '';
+  function writeLine(line, onDone){
+    var words = Array.prototype.slice.call(line.querySelectorAll('.chalk-word'));
+    var i = 0;
+    function next(){
+      if (i >= words.length){
         if (onDone) onDone();
+        return;
       }
+      var word = words[i];
+      word.classList.add('revealed');
+      var rect = word.getBoundingClientRect();
+      spawnDust(rect.left + rect.width / 2, rect.top + rect.height * 0.8);
+      i++;
+      setTimeout(next, 95 + Math.random() * 45);
     }
-    requestAnimationFrame(frame);
+    next();
   }
 
   function writeAllLines(lines, index){
@@ -218,12 +229,8 @@
       showChalkButtons();
       return;
     }
-    var line = lines[index];
-    var durationPerChar = 55; // ms por caractere, dá o ritmo de "escrita"
-    var text = line.textContent || '';
-    var duration = Math.max(500, Math.min(1600, text.length * durationPerChar));
-    writeLine(line, duration, function(){
-      setTimeout(function(){ writeAllLines(lines, index + 1); }, 180);
+    writeLine(lines[index], function(){
+      setTimeout(function(){ writeAllLines(lines, index + 1); }, 260);
     });
   }
 
@@ -231,18 +238,18 @@
     revealBtn.classList.add('hidden');
     chalkContent.hidden = false;
     sizeDustCanvas();
+    prepareChalkWords();
+
+    var allWords = chalkQuestion ? Array.prototype.slice.call(chalkQuestion.querySelectorAll('.chalk-word')) : [];
 
     if (reduceMotionChalk || !chalkLines.length){
-      chalkLines.forEach(function(line){
-        line.classList.add('revealed');
-        line.style.clipPath = '';
-      });
+      allWords.forEach(function(word){ word.classList.add('revealed'); });
       showChalkButtons();
       return;
     }
 
     // pequeno atraso para garantir que o navegador registre o estado
-    // inicial (clip-path fechado) antes de disparar a animação
+    // inicial (palavras invisíveis) antes de disparar a animação
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
         writeAllLines(chalkLines, 0);
@@ -250,7 +257,7 @@
     });
 
     // rede de segurança: caso algo trave, os botões aparecem mesmo assim
-    var safetyTimeout = chalkLines.length * 2200;
+    var safetyTimeout = allWords.length * 200 + chalkLines.length * 400 + 1200;
     setTimeout(showChalkButtons, safetyTimeout);
   }
 
@@ -495,3 +502,4 @@
     }
   }
 })();
+                            
